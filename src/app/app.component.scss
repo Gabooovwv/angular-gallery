@@ -1,0 +1,28 @@
+main {
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    border: 1px solid antiquewhite;
+    padding: 15px;
+
+    &#gallery1 {
+    }
+    &#gallery2 {
+      input {
+        display: none
+      }
+    }
+    &#gallery3 {
+      input {
+        display: none
+      }
+      #dropbox {
+        border: 1px black dashed;
+        padding: 15px;
+        width: 200px;
+        height: 50px;
+      }
+    }
+  }
+}
