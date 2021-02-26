@@ -1,40 +1,24 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-
 export class AppComponent {
-  @ViewChild('file') file: ElementRef<HTMLElement>;
+  public files: any = [];
 
-  changeHandler(e: File[]): void {
-    console.log(e);
-    alert('Upload success');
-  }
-  clickHandler(): void {
-    const el: HTMLElement = this.file.nativeElement;
-    el.click();
+  fileHandler($event: File[]): void {
+    this.generateThumbnail($event);
   }
 
-  dragenterHandler(e): void {
-    e.stopPropagation();
-    e.preventDefault();
-  }
+  generateThumbnail($event): void {
+    const reader  = new FileReader();
 
-  dragoverHandler(e): void {
-    e.stopPropagation();
-    e.preventDefault();
-  }
+    reader.readAsDataURL($event[0]);
 
-  dropHandler(e): void {
-    e.stopPropagation();
-    e.preventDefault();
-
-    const dataTransfer = e.dataTransfer;
-    const files        = dataTransfer.files;
-
-    this.changeHandler(files);
+    reader.onloadend = () => {
+      this.files.push({img: reader.result, id: this.files.length});
+    };
   }
 }

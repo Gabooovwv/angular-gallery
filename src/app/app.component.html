@@ -1,27 +1,13 @@
-<main>
-  <form id="gallery1">
-    <label>Normal file uploader</label>
-    <input type="file" (change)="changeHandler($event.target.files)"/>
-  </form>
+<app-file-upload button (buttonClick)="fileHandler($event.target.files)"></app-file-upload>
+<app-file-upload drag-and-drop (fileDrop)="fileHandler($event)"></app-file-upload>
 
-  <form id="gallery2">
-    <label>Hidden file uploader</label>
-    <input #file type="file" (change)="changeHandler($event.target.files)" multiple accept="image/*" class="visually-hidden">
-    <button type="button" (click)="clickHandler()">Select some files</button>
-  </form>
-
-  <form id="gallery3">
-    <label>Drag and drop file uploader</label>
-    <div
-      id="dropbox"
-      (dragenter)="dragenterHandler($event)"
-      (dragover)="dragoverHandler($event)"
-      (drop)="dropHandler($event)"
-    >Select some files</div>
-  </form>
-
-
-  <div id="preview">
-
-  </div>
-</main>
+<div id="preview">
+  <p *ngIf="files.length === 0">There is no uploaded image</p>
+  <img
+    *ngFor="let item of files"
+    src="{{item.img}}"
+    data-id="{{item.id}}"
+    alt="image"
+    class="thumb"
+  />
+</div>
